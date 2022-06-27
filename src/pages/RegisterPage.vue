@@ -183,13 +183,17 @@ export default {
       try {
         const response = await this.axios.post(
           // "https://test-for-3-2.herokuapp.com/user/Register",
-          this.$root.store.server_domain + "/Register",
+          this.$root.store.server_domain + "/User/SignUp",
 
           {
-            username: this.form.username,
-            password: this.form.password
+            userLogIn:{
+              username: this.form.username,
+              password: this.form.password
+            },
+            country: this.form.country
           }
         );
+        
         this.$router.push("/login");
         // console.log(response);
       } catch (err) {
