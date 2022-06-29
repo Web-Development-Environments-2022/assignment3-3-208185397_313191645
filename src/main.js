@@ -61,7 +61,6 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
 Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
@@ -78,7 +77,7 @@ const shared_data = {
     localStorage.removeItem("username");
     this.username = undefined;
   },
-  server_domain: "http://localhost:3000"
+  server_domain: "https://ib-recipes.cs.bgu.ac.il"
 };
 console.log(shared_data);
 // Vue.prototype.$root.store = shared_data;

@@ -96,15 +96,16 @@ export default {
         
         const response = await this.axios.post(
           this.$root.store.server_domain +"/User/SignIn",          
-
           {
             username: this.form.username,
-            password: this.form.password
-          }
+            password: this.form.password,
+          },          
+          {withCredentials: true}
         );
         // console.log(response);
-        // this.$root.loggedIn = true;
-        console.log(this.$root.store.login);
+        // this.$root.loggedIn = true;        
+        console.log("response:")
+        console.log(response)
         this.$root.store.login(this.form.username);
         this.$router.push("/");
       } catch (err) {
