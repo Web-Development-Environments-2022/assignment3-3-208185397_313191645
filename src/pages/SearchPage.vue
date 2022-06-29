@@ -3,8 +3,8 @@
     <div>
       <b-form @submit.stop.prevent>
         <label for="text-password">Insert your search, and the filters you would like</label>
-        <b-form-input v-model="selection.search_string" id="querystring" ></b-form-input>
-        <b-form-text id="password-help-block">
+        <b-form-input placeholder="Any search" v-model="selection.search_string" id="querystring" ></b-form-input>
+        <b-form-text id="help-block">
           In case of adding filtering the search will only consist of spooncular results!
         </b-form-text>
       </b-form>
@@ -41,8 +41,8 @@
     </div>
     </div>    
     <div>
-      <RecipePreviewList v-if="did_search"
-      title="Search Results" source="/users/LastSeen"
+      <RecipePreviewList id="searchResult" v-if="did_search"
+      title="Search Results" :source= 'search_query'
       :class="{
         RandomRecipes: true,
         blur: !$root.store.username,
@@ -100,8 +100,9 @@
         }
       },
       Submit(){
-        if(this.selection.search_string=='') 
-        this.search_query = '/Recipes?amount='+this.selection.selected_amount+'&search='+this.selection.search_string;
+        this.did_search = false;
+        this.$nextTick(()=>{
+          this.search_query = '/Recipes?amount='+this.selection.selected_amount+'&search='+this.selection.search_string;
         for(let cuisine of this.selection.selected_cuisines){
           this.search_query += ('&cousine=' + cuisine);
         }
@@ -111,6 +112,8 @@
         }
         alert(this.search_query)
         this.did_search = true;
+        });
+        
       }
     }    
   }
