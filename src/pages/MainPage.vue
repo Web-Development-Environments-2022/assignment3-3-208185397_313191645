@@ -1,9 +1,8 @@
 <template>
-  <div class="container">
+  <div class="container"> <br>
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Randome Recipes" source="/recipes/random" class="RandomRecipes center" />
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    {{ !$root.store.username }}
     <RecipePreviewList
       title="Last Viewed Recipes" source="/users/LastSeen"
       :class="{
@@ -41,5 +40,8 @@ export default {
 ::v-deep .blur .recipe-preview {
   pointer-events: none;
   cursor: default;
+}
+.title{
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 </style>

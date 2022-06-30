@@ -7,12 +7,20 @@
       <img v-if="image_load" :src="recipe.imageUri" class="recipe-image" />
     </div>
     <div class="recipe-footer">
-      <div :title="recipe.title" class="recipe-title">
+      <div :title="recipe.title" class="recipe-title" style="text-align:center">
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.readyInMinutes }} minutes</li>
-        <li>{{ recipe.aggregateLikes }} likes</li>
+        <li>{{ recipe.prepTime }} minutes</li>
+        <li>{{ recipe.popularity }} likes</li>
+      </ul>
+      <ul class="recipe-overview">
+        <li v-if="recipe.vegan">
+          <img id="vegan"  src="../assets/vegan.png" width="30px" height="30px">
+        </li>
+        <li v-if="recipe.glutenFree">
+          <img id="glutenFree"  src="../assets/glutenFree.jpg" width="30px" height="30px">
+        </li>
       </ul>
     </div>
   </router-link>
@@ -23,6 +31,7 @@ export default {
   mounted() {
     this.axios.get(this.recipe.imageUri).then((i) => {
       this.image_load = true;
+      console.log(this.recipe)
     });
   },
   data() {
@@ -66,10 +75,15 @@ export default {
 <style scoped>
 .recipe-preview {
   display: inline-block;
-  width: 90%;
-  height: 100%;
+  width: 80%;
+  height: 93%;
   position: relative;
   margin: 10px 10px;
+  
+  border: 2px solid black;
+  border-radius: 5px;
+  color: black;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .recipe-preview > .recipe-body {
   width: 100%;
@@ -83,7 +97,7 @@ export default {
   margin-top: auto;
   margin-bottom: auto;
   display: block;
-  width: 98%;
+  width: 100%;
   height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -105,9 +119,10 @@ export default {
   overflow: hidden;
   -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
+  color: black;
 }
 
-.recipe-preview .recipe-footer ul.recipe-overview {
+.recipe-preview .recipe-footer ul.recipe-overview ul.recipe-foodprop{
   padding: 5px 10px;
   width: 100%;
   display: -webkit-box;
@@ -137,5 +152,10 @@ export default {
   width: 90px;
   display: table-cell;
   text-align: center;
+
+}
+
+.recipe-body{
+  
 }
 </style>

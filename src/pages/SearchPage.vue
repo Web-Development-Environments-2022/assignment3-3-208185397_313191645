@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-form @submit.stop.prevent>
+      <b-form @submit.stop.prevent> <br>
         <label for="text-password">Insert your search, and the filters you would like</label>
         <b-form-input placeholder="Any search" v-model="selection.search_string" id="querystring" ></b-form-input>
         <b-form-text id="help-block">
@@ -79,6 +79,9 @@
     },
     mounted () {
         this.getOptions();
+        this.search_query = localStorage.getItem("search_query")
+        if(this.search_query!=null) this.did_search = true;
+        else this.search_query = ""
     },
     methods:
     {
@@ -111,6 +114,7 @@
           this.search_query += ('&intollerance=' + into);
         }
         alert(this.search_query)
+        var ls = localStorage.setItem("search_query", this.search_query);
         this.did_search = true;
         });
         

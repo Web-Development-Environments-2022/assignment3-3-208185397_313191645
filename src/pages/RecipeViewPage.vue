@@ -18,7 +18,7 @@
                 v-for="(r, index) in recipe.extendedIngredients"
                 :key="index + '_' + r.id"
               >
-                {{ r.original }}
+                {{ r }}
               </li>
             </ul>
           </div>
@@ -26,7 +26,7 @@
             Instructions:
             <ol>
               <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s.step }}
+                {{ s }}
               </li>
             </ol>
           </div>
@@ -51,15 +51,13 @@ export default {
   async created() {
     try {
       let response;
-      // response = this.$route.params.response;
-
+      // response = this.$route.params.response;      
       try {
         response = await this.axios.get(
-          // "https://test-for-3-2.herokuapp.com/recipes/info",
           this.$root.store.server_domain + "/Recipes/ExtendedRecipes/" + 
             this.$route.params.recipeId          
         );
-
+        console.log(response)
         // console.log("response.status", response.status);
         if (response.status !== 200) this.$router.replace("/NotFound");
       } catch (error) {
@@ -68,22 +66,25 @@ export default {
         return;
       }
 
-      let {
-        analyzedInstructions,
-        instructions,
-        extendedIngredients,
-        aggregateLikes,
-        readyInMinutes,
-        image,
-        title
-      } = response.data.recipe;
+      // let {
+      //   analyzedInstructions,
+      //   instructions,
+      //   extendedIngredients,
+      //   aggregateLikes,
+      //   readyInMinutes,
+      //   image,
+      //   title
+      // } = response.data.recipe;
+      let analyzedInstructions = response.data.prepInstructions.replace("<ol>","").replace("</ol>","").replace("</li>","").split("<li>");
+      let instructions = response.data.prepInstructions;
+      let extendedIngredients = response.data.ingredients.split('&');
+      let aggregateLikes = response.data.recepiePreview.popularity;
+      let readyInMinutes = response.data.recepiePreview.prepTime;
+      let image = response.data.recepiePreview.imageUri;
+      let title = response.data.recepiePreview.title;
 
-      let _instructions = analyzedInstructions
-        .map((fstep) => {
-          fstep.steps[0].step = fstep.name + fstep.steps[0].step;
-          return fstep.steps;
-        })
-        .reduce((a, b) => [...a, ...b], []);
+      let _instructions = analyzedInstructions;
+      
 
       let _recipe = {
         instructions,
@@ -95,7 +96,7 @@ export default {
         image,
         title
       };
-
+      console.log(_recipe)
       this.recipe = _recipe;
     } catch (error) {
       console.log(error);

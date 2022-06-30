@@ -4,11 +4,19 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <div v-if="recipes.length>0">
+      <b-row v-for="(lst, index) in recipes" :key="index" >
+      <b-col v-for="(r) in lst" :key="r.id">
+        
         <RecipePreview class="recipePreview" :recipe="r" />
+
       </b-col>
     </b-row>
+    </div>
+    
+    <div v-else>
+        No recipes to show...
+    </div>
   </b-container>
 </template>
 
@@ -45,10 +53,20 @@ export default {
           {withCredentials: true}
         );
 
-        console.log(response);
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
+        let recipesThrees = [];
+        let threes = -1;
+        for(const recipe of recipes){
+          let index = recipes.indexOf(recipe);
+          if(index%3 == 0){
+            threes+=1;
+            recipesThrees.push([])
+          }
+          recipesThrees[threes].push(recipe);
+        }
+        this.recipes = recipesThrees;
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);
