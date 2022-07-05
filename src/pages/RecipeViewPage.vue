@@ -65,16 +65,6 @@ export default {
         this.$router.replace("/NotFound");
         return;
       }
-
-      // let {
-      //   analyzedInstructions,
-      //   instructions,
-      //   extendedIngredients,
-      //   aggregateLikes,
-      //   readyInMinutes,
-      //   image,
-      //   title
-      // } = response.data.recipe;
       let analyzedInstructions = response.data.prepInstructions.replace("<ol>","").replace("</ol>","").replace("</li>","").split("<li>");
       let instructions = response.data.prepInstructions;
       let extendedIngredients = response.data.ingredients.split('&');

@@ -56,17 +56,17 @@ export default {
         const recipes = response.data;
         this.recipes = [];
         this.recipes.push(...recipes);
-        let recipesThrees = [];
-        let threes = -1;
+        let recipesFives = [];
+        let fives = -1;
         for(const recipe of recipes){
           let index = recipes.indexOf(recipe);
-          if(index%3 == 0){
-            threes+=1;
-            recipesThrees.push([])
+          if(index%5 == 0){
+            fives+=1;
+            recipesFives.push([])
           }
-          recipesThrees[threes].push(recipe);
+          recipesFives[fives].push(recipe);
         }
-        this.recipes = recipesThrees;
+        this.recipes = recipesFives;
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);

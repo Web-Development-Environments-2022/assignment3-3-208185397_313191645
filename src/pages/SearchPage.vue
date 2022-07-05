@@ -1,16 +1,16 @@
 <template>
   <div>
-    <div>
+    <div class="form">
       <b-form @submit.stop.prevent> <br>
-        <label for="text-password">Insert your search, and the filters you would like</label>
-        <b-form-input placeholder="Any search" v-model="selection.search_string" id="querystring" ></b-form-input>
-        <b-form-text id="help-block">
+        <label class="pl-3">Insert your search, and the filters you would like</label>
+        <b-form-input class="pl-3 w-50" placeholder="Search here" v-model="selection.search_string" id="querystring" ></b-form-input>
+        <b-form-text class="pl-3" id="help-block">
           In case of adding filtering the search will only consist of spooncular results!
         </b-form-text>
       </b-form>
     </div>
-    <div id="dropdowns">
-    <multiselect
+    <div id="dropdowns" class="d-flex justify-content-center pt-1">
+    <multiselect 
       v-model="selection.selected_cuisines"
       :options="options.cuisines"
       placeholder="No cuisines to exclude"
@@ -35,11 +35,11 @@
       placeholder="select amount of results"
       :allowEmpty="false"
       >      
-    </multiselect>
-    <div>    
-      <b-button @click="Submit" variant="success" >Search</b-button>
-    </div>
+    </multiselect>    
     </div>    
+    <div class="d-flex justify-content-center pt-3">    
+      <b-button @click="Submit"  variant="success" >Search</b-button>
+    </div>
     <div>
       <RecipePreviewList id="searchResult" v-if="did_search"
       title="Search Results" :source= 'search_query'
@@ -109,7 +109,7 @@
         for(let cuisine of this.selection.selected_cuisines){
           this.search_query += ('&cousine=' + cuisine);
         }
-        if(this.selection.selected_diet!='') this.search_query+=('&diet=' + this.selection.selected_diet)        
+        if(this.selection.selected_diet!='' && this.selection.selected_diet!=null) this.search_query+=('&diet=' + this.selection.selected_diet)        
         for(let into of this.selection.selected_intolerances){
           this.search_query += ('&intollerance=' + into);
         }
@@ -124,5 +124,14 @@
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css">
+  .button{
+      
+      
+  }
+  .dropdowns{
 
+  }
+  .form{
+
+  }
 </style>

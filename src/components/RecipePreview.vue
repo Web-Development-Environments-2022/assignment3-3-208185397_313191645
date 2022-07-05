@@ -11,7 +11,7 @@
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.prepTime }} minutes</li>
+        <li>{{ recipe.prepTime }} minutes</li> <br>
         <li>{{ recipe.popularity }} likes</li>
       </ul>
       <ul class="recipe-overview">
@@ -75,7 +75,7 @@ export default {
 <style scoped>
 .recipe-preview {
   display: inline-block;
-  width: 80%;
+  width: 95%;
   height: 93%;
   position: relative;
   margin: 10px 10px;
@@ -150,7 +150,7 @@ export default {
   -webkit-flex-grow: 1;
   flex-grow: 1;
   width: 90px;
-  display: table-cell;
+  display: inline-block;
   text-align: center;
 
 }
