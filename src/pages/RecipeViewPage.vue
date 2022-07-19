@@ -9,7 +9,11 @@
       <div class="watchLikes">        
         <div style="float:left;">
           <div>{{ recipe.aggregateLikes }} likes</div>
-          <img src="./../assets/likes.png" style="width: 60%; "/>
+          <div @click="handleLike" id="like">
+            <img src="./../assets/likes.png" style="width: 60%; "/><br>
+            <small v-if="!recipe.isLiked">press to like</small>
+            <small v-else>already liked <br>press to remove like</small>
+          </div>            
         </div>
         <div style="float:right;">
           <div>{{ recipe.readyInMinutes }} min</div>  
@@ -43,45 +47,7 @@
     </div>
   </div>
 </div>
-<!--
-  <div>
-    <div v-if="recipe">
-      <div class="title">
-        <h2>{{ recipe.title }}</h2>
-        <img :src="recipe.image" class="img" />
-      </div>
-      <div class="recipe-body">
-        <div class="wrapper">
-          <div class="wrapped">
-            <div class="mb-3">
-              <div>Ready in {{ recipe.readyInMinutes }} minutes</div>
-              <div>Likes: {{ recipe.aggregateLikes }} likes</div>
-            </div>
-            Ingredients:
-            <ul>
-              <li
-                v-for="(r, index) in recipe.extendedIngredients"
-                :key="index + '_' + r.id"
-              >
-                {{ r }}
-              </li>
-            </ul>
-          </div>
-          <div class="wrapped">
-            Instructions:
-            <ol>
-              <li v-for="s in recipe._instructions" :key="s.number">
-                {{ s }}
-              </li>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
--->
-  </template>
+</template>
 
 <script>
 export default {
@@ -104,6 +70,17 @@ export default {
     },
     getGoogleLink(ingredient) {            
       return `https://www.google.com/maps/search/${ingredient.split('|')[0]}+near+me`         
+    },
+    handleLike(){
+      if(!this.recipe.isLiked){
+        console.log(this.recipe)
+        this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
+          {
+            "recipeId": this.recipe.id
+          }
+        );      
+      }
+      this.recipe.isLiked = !this.recipe.isLiked;
     }
   },
   async created() {
@@ -133,8 +110,9 @@ export default {
       let readyInMinutes = response.data.recepiePreview.prepTime;
       let image = response.data.recepiePreview.imageUri;
       let title = response.data.recepiePreview.title;
-
+      let isLiked = response.data.recepiePreview.inFavorites;
       let _instructions = analyzedInstructions;
+      let id = response.data.recepiePreview.id;
       instructions = instructions.replaceAll('.', '.<br>');
       
 
@@ -146,10 +124,12 @@ export default {
         aggregateLikes,
         readyInMinutes,
         image,
-        title
+        title,
+        isLiked,
+        id
       };
       console.log(_recipe)
-      this.recipe = _recipe;
+      this.recipe = _recipe;      
     } catch (error) {
       console.log(error);
     }
@@ -211,6 +191,9 @@ ul li {
 }
 .title{
   padding-left: 3px;
+}
+#like{
+  cursor: pointer;
 }
 /* .recipe-header{
 

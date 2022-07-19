@@ -14,9 +14,9 @@
         <b-nav-item v-if="!$root.store.username" :to="{ name: 'login' }">LogIn</b-nav-item>
       <!-- user -->
         <b-nav-item-dropdown style="padding-right: 6px;" id="userLabel" v-if="$root.store.username" :text="concatHello" right>
-          <b-dropdown-item :to="{ name: '' }">Favorites</b-dropdown-item>
-          <b-dropdown-item :to="{ name: '' }">Personal Recipes</b-dropdown-item>
-          <b-dropdown-item :to="{ name: '' }">Family Recipes</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'favorites' }">Favorites</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'personal' }">Personal Recipes</b-dropdown-item>
+          <b-dropdown-item :to="{ name: 'family' }">Family Recipes</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item v-if="$root.store.username" @click="Logout">LogOut</b-nav-item>
     </b-navbar-nav>    

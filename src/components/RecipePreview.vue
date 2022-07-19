@@ -11,8 +11,10 @@
         {{ recipe.title }}
       </div>
       <ul class="recipe-overview">
-        <li>{{ recipe.prepTime }} minutes</li> <br>
+        <li>{{ recipe.prepTime }} minutes</li> 
+        <img src="./../assets/watch.jpg" style="width: 13%; "/><br>   
         <li>{{ recipe.popularity }} likes</li>
+        <img src="./../assets/likes.png" style="width: 15%; "/>        
       </ul>
       <ul class="recipe-overview">
         <li v-if="recipe.vegan">
@@ -44,30 +46,11 @@ export default {
       type: Object,
       required: true
     }
-
-    // id: {
-    //   type: Number,
-    //   required: true
-    // },
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // readyInMinutes: {
-    //   type: Number,
-    //   required: true
-    // },
-    // image: {
-    //   type: String,
-    //   required: true
-    // },
-    // aggregateLikes: {
-    //   type: Number,
-    //   required: false,
-    //   default() {
-    //     return undefined;
-    //   }
-    // }
+  },
+  methods: {
+    like(recipe){
+      alert(recipe);
+    }
   }
 };
 </script>
