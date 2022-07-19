@@ -2,18 +2,18 @@
   <div id="app">    
   <div id="nav">
 
-  <b-navbar type="dark" variant="dark">
+  <b-navbar type="light" variant="dark">
     <b-navbar-nav>
       <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <!-- guest -->
-        <b-nav-text id="guestLabel" right v-if="!$root.store.username">Hello Guest</b-nav-text>
+        <b-nav-text style="padding-right: 6px;" id="guestLabel" right v-if="!$root.store.username">Hello Guest</b-nav-text>
         <b-nav-item v-if="!$root.store.username" :to="{ name: 'register' }">Register</b-nav-item>
         <b-nav-item v-if="!$root.store.username" :to="{ name: 'login' }">LogIn</b-nav-item>
       <!-- user -->
-        <b-nav-item-dropdown id="userLabel" v-if="$root.store.username" :text="concatHello" right>
+        <b-nav-item-dropdown style="padding-right: 6px;" id="userLabel" v-if="$root.store.username" :text="concatHello" right>
           <b-dropdown-item :to="{ name: '' }">Favorites</b-dropdown-item>
           <b-dropdown-item :to="{ name: '' }">Personal Recipes</b-dropdown-item>
           <b-dropdown-item :to="{ name: '' }">Family Recipes</b-dropdown-item>
@@ -64,20 +64,24 @@ export default {
 }
 
 #nav {
-  position: relative;
+  position: relative;  
 }
 
 #nav a {
   font-weight: bold;
-  color: #8ae8ef;
+  color: burlywood;
   text-align: center;
+  
 }
 
 #nav a.router-link-exact-active {
-  color: #07a9b5;  
+  color: rgb(238, 141, 15);  
+  font-size: large;
 }
 #guestLabel{
-  color: #8ae8ef;
+  color: burlywood;
   font-weight: bold;
+  font-size: large;
 }
+
 </style>
