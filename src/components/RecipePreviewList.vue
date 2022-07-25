@@ -80,4 +80,12 @@ export default {
 .container {
   min-height: 400px;
 }
+.recipePreview{
+
+  max-height: 400px;
+  max-width: 280px;
+}
+.recipePreview:hover {
+  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
 </style>
