@@ -4,7 +4,7 @@
       style="padding-top: 20px; padding-left: 5px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
       Search Recipes
     </h1>
-    <div style="display: inline-block;">
+    <div style="display: inline-block; width: 100%">
       <div class="form" style="float: left; padding-left: 10px; padding-right: 12px;">
       <b-form @submit.stop.prevent> <br>        
         <b-form-input class="pl-3" placeholder="Search here" v-model="selection.search_string" id="querystring" ></b-form-input>
@@ -13,12 +13,12 @@
         </b-form-text>
       </b-form>
       </div>
-      <div style="padding-right: 10px; width: 700px;" id="dropdowns" class="d-flex pt-4">
+      <div style="padding-right: 10px;" id="dropdowns" class="d-flex pt-4">
       <multiselect 
         v-model="selection.selected_cuisines"
         :options="options.cuisines"
         placeholder="No cuisines to exclude"
-        
+        style="max-width: 200px"
         multiple
         size="lg">      
       </multiselect>
@@ -26,21 +26,22 @@
         v-model="selection.selected_intolerances"
         :options="options.intolerance"
         placeholder="No intolerances"
-        
+        style="max-width: 200px"
         multiple>      
       </multiselect>
           <multiselect
         v-model="selection.selected_diet"
         :options="options.diets"
-        style="width: 50%"
+        style="max-width: 200px"
         placeholder="Any diet"
+        
         >      
       </multiselect>
       <multiselect
         v-model="selection.selected_amount"
         :options="[5,10,15]"
         placeholder="select amount of results"
-        style="width: 50%"
+        style="max-width: 200px"
         :allowEmpty="false"
         >      
       </multiselect>    
