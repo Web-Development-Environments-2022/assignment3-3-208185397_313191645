@@ -4,11 +4,11 @@
     
     <div class="content">
       <div class="previewWrapper">
-        <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>
+        <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>        
       </div>      
       <div class="ingredInstruc">
         <div class="ingred">
-          <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients:</h3>
+          <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients ({{recipe.numOfDishes}} dishes):</h3>          
           <small>Press on an ingredient to find it near by</small>
           <ul style="list-style: none;">
               <li
@@ -104,6 +104,7 @@ export default {
       let isLiked = response.data.recepiePreview.inFavorites;
       let _instructions = analyzedInstructions;
       let id = response.data.recepiePreview.id;
+      let numOfDishes = response.data.numberOfDishes;
       instructions = instructions.replaceAll('.', '.<br>');
       this.recipePrev  = response.data.recepiePreview;
 
@@ -117,9 +118,10 @@ export default {
         image,
         title,
         isLiked,
-        id
+        id,
+        numOfDishes
       };
-      console.log(this.recipePrev)
+      console.log(response.data)
       this.recipe = _recipe;      
     } catch (error) {
       console.log(error);
@@ -162,11 +164,11 @@ ul li {
 }
 .ingredInstruc{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  padding-left: 15%;
+  padding-left: 8%;
   padding-top: 3%;
   font-size: large;
   display: flex;  
-  padding-top: 250px;
+  padding-top: 180px;
 }
 .instruc{
   margin-left: auto;
@@ -189,13 +191,13 @@ ul li {
   cursor: pointer;
 }
 .recipePrev{
-  transform: scale(1.5);  
+  transform: scale(1.25);  
   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 .previewWrapper{
   display: block;
   margin: auto;
-  padding-top: 140px;  
+  padding-top: 110px;  
   max-height: 400px;
   max-width: 280px;
   min-height: 370px;

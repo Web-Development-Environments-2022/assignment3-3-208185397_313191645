@@ -1,41 +1,50 @@
 <template>
   <div>
-    <div class="form">
-      <b-form @submit.stop.prevent> <br>
-        <label class="pl-3">Insert your search, and the filters you would like</label>
-        <b-form-input class="pl-3 w-50" placeholder="Search here" v-model="selection.search_string" id="querystring" ></b-form-input>
+    <h1 class="title" 
+      style="padding-top: 20px; padding-left: 5px; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+      Search Recipes
+    </h1>
+    <div style="display: inline-block;">
+      <div class="form" style="float: left; padding-left: 10px; padding-right: 12px;">
+      <b-form @submit.stop.prevent> <br>        
+        <b-form-input class="pl-3" placeholder="Search here" v-model="selection.search_string" id="querystring" ></b-form-input>
         <b-form-text class="pl-3" id="help-block">
           In case of adding filtering the search will only consist of spooncular results!
         </b-form-text>
       </b-form>
-    </div>
-    <div id="dropdowns" class="d-flex justify-content-center pt-1">
-    <multiselect 
-      v-model="selection.selected_cuisines"
-      :options="options.cuisines"
-      placeholder="No cuisines to exclude"
-      multiple
-      size="lg">      
-    </multiselect>
-    <multiselect
-      v-model="selection.selected_intolerances"
-      :options="options.intolerance"
-      placeholder="No intolerances"
-      multiple>      
-    </multiselect>
-        <multiselect
-      v-model="selection.selected_diet"
-      :options="options.diets"
-      placeholder="Any diet"
-      >      
-    </multiselect>
-    <multiselect
-      v-model="selection.selected_amount"
-      :options="[5,10,15]"
-      placeholder="select amount of results"
-      :allowEmpty="false"
-      >      
-    </multiselect>    
+      </div>
+      <div style="padding-right: 10px; width: 700px;" id="dropdowns" class="d-flex pt-4">
+      <multiselect 
+        v-model="selection.selected_cuisines"
+        :options="options.cuisines"
+        placeholder="No cuisines to exclude"
+        
+        multiple
+        size="lg">      
+      </multiselect>
+      <multiselect
+        v-model="selection.selected_intolerances"
+        :options="options.intolerance"
+        placeholder="No intolerances"
+        
+        multiple>      
+      </multiselect>
+          <multiselect
+        v-model="selection.selected_diet"
+        :options="options.diets"
+        style="width: 50%"
+        placeholder="Any diet"
+        >      
+      </multiselect>
+      <multiselect
+        v-model="selection.selected_amount"
+        :options="[5,10,15]"
+        placeholder="select amount of results"
+        style="width: 50%"
+        :allowEmpty="false"
+        >      
+      </multiselect>    
+      </div>    
     </div>    
     <div class="d-flex justify-content-center pt-3">    
       <b-button @click="Submit"  variant="success" >Search</b-button>
@@ -124,14 +133,6 @@
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css">
-  .button{
-      
-      
-  }
-  .dropdowns{
-
-  }
-  .form{
-
+  .title{    
   }
 </style>
