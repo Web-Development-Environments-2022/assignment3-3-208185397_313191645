@@ -1,29 +1,11 @@
 <template>
 <div>
   <div v-if="recipe">
-    <div class="imgTitle">
-      <h1 style="padding-bottom: 1%; padding-top:3px">{{ recipe.title}}</h1>
-      <img :src="recipe.image" class="img"/>
-    </div>    
+    
     <div class="content">
-      <div class="watchLikes">        
-        <div style="float:left;">
-          <div>{{ recipe.aggregateLikes }} likes</div>
-          <div @click="handleLike" id="like">
-            
-            <img src="./../assets/likes.png" style="width: 60%; "/><br>
-            <small v-if="!recipe.isLiked">press to like</small>
-            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
-          </div>            
-        </div>
-        <div class="veganGlutenFreeWatched">
-
-        </div>
-        <div style="float:right;">
-          <div>{{ recipe.readyInMinutes }} min</div>  
-          <img src="./../assets/watch.jpg" style="width: 60%; padding-top: 3px;"/>
-        </div>        
-      </div>
+      <div class="previewWrapper">
+        <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>
+      </div>      
       <div class="ingredInstruc">
         <div class="ingred">
           <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients:</h3>
@@ -53,11 +35,16 @@
 </template>
 
 <script>
-export default {
+import RecipePreview from '../components/RecipePreview.vue';
+export default {  
   data() {
     return {
-      recipe: null
+      recipe: null,
+      recipePrev: null
     };
+  },
+  components:{
+    RecipePreview
   },
   methods:{
     removeTags(str) {
@@ -118,7 +105,7 @@ export default {
       let _instructions = analyzedInstructions;
       let id = response.data.recepiePreview.id;
       instructions = instructions.replaceAll('.', '.<br>');
-      
+      this.recipePrev  = response.data.recepiePreview;
 
       let _recipe = {
         instructions,
@@ -132,7 +119,7 @@ export default {
         isLiked,
         id
       };
-      console.log(_recipe)
+      console.log(this.recipePrev)
       this.recipe = _recipe;      
     } catch (error) {
       console.log(error);
@@ -179,6 +166,7 @@ ul li {
   padding-top: 3%;
   font-size: large;
   display: flex;  
+  padding-top: 250px;
 }
 .instruc{
   margin-left: auto;
@@ -200,6 +188,19 @@ ul li {
 #like{
   cursor: pointer;
 }
+.recipePrev{
+  transform: scale(1.5);  
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+.previewWrapper{
+  display: block;
+  margin: auto;
+  padding-top: 140px;  
+  max-height: 400px;
+  max-width: 280px;
+  min-height: 370px;
+}
+
 /* .recipe-header{
 
 } */
