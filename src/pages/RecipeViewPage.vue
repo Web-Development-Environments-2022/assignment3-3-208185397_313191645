@@ -10,10 +10,14 @@
         <div style="float:left;">
           <div>{{ recipe.aggregateLikes }} likes</div>
           <div @click="handleLike" id="like">
+            
             <img src="./../assets/likes.png" style="width: 60%; "/><br>
             <small v-if="!recipe.isLiked">press to like</small>
-            <small v-else>already liked <br>press to remove like</small>
+            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
           </div>            
+        </div>
+        <div class="veganGlutenFreeWatched">
+
         </div>
         <div style="float:right;">
           <div>{{ recipe.readyInMinutes }} min</div>  
@@ -23,6 +27,7 @@
       <div class="ingredInstruc">
         <div class="ingred">
           <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients:</h3>
+          <small>Press on an ingredient to find it near by</small>
           <ul style="list-style: none;">
               <li
                 v-for="(r, index) in recipe.extendedIngredients"
@@ -39,9 +44,7 @@
           <div class="instruc">
             <h3 style="text-decoration: underline;">Instructions:</h3>
             <p><span class="ingredItems" v-html="recipe.instructions"></span></p>
-          </div>
-          
-            
+          </div>                      
         </div>
       </div>
     </div>
@@ -72,16 +75,17 @@ export default {
       return `https://www.google.com/maps/search/${ingredient.split('|')[0]}+near+me`         
     },
     handleLike(){
-      if(!this.recipe.isLiked){
-        console.log(this.recipe)
+      if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
+      else if(!this.recipe.isLiked){        
         this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
           {
             "recipeId": this.recipe.id
           }
-        );      
-      }
-      this.recipe.isLiked = !this.recipe.isLiked;
-    }
+        ).then((res)=>{
+          this.recipe.isLiked = !this.recipe.isLiked;
+        }).catch((err) => {this.$parent.showModal("Cannot like recipe.. something went wrong")});      
+      }            
+    },
   },
   async created() {
     try {
@@ -183,8 +187,9 @@ ul li {
   
   
   text-align: left;
-  padding-left: 200px; 
-  
+  padding-left: 15%; 
+  max-width: 80%;
+  float: left;
 }
 .ingredItems{
   color:rgb(159, 94, 9);
