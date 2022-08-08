@@ -130,5 +130,13 @@ export default {
 <style lang="scss" scoped>
 .container {
   max-width: 400px;
+
+}
+.title{  
+  padding-bottom: 30px;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+b-form-group{
+  padding-bottom: 30px;
 }
 </style>

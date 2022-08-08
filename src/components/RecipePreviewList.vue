@@ -4,19 +4,37 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <div v-if="recipes.length>0">
+    <div v-if="isVertical">
+      <div v-if="recipes.length>0">
+      <b-col v-for="(lst, index) in recipes" :key="index" >
+      <b-row v-for="(r) in lst" :key="r.id">
+        
+        <RecipePreview class="recipePreview" :recipe="r" />
+
+      </b-row>
+      </b-col>
+      </div>
+      
+      <div v-else>
+          No recipes to show...
+      </div>
+    </div>
+    <div v-else>
+      <div v-if="recipes.length>0">
       <b-row v-for="(lst, index) in recipes" :key="index" >
       <b-col v-for="(r) in lst" :key="r.id">
         
         <RecipePreview class="recipePreview" :recipe="r" />
 
       </b-col>
-    </b-row>
+      </b-row>
+      </div>
+      
+      <div v-else>
+          No recipes to show...
+      </div>      
     </div>
     
-    <div v-else>
-        No recipes to show...
-    </div>
   </b-container>
 </template>
 
@@ -34,6 +52,10 @@ export default {
     },
     source:{
       type: String,
+      required: true
+    },
+    isVertical:{
+      type: Boolean,
       required: true
     }
   },
@@ -84,8 +106,9 @@ export default {
 
   max-height: 400px;
   max-width: 280px;
+  min-height: 370px; // this to align images
 }
 .recipePreview:hover {
-  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.07); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 </style>

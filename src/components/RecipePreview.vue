@@ -23,6 +23,12 @@
         <li v-if="recipe.glutenFree">
           <img id="glutenFree"  src="../assets/glutenFree.jpg" width="30px" height="30px">
         </li>
+        <li v-if="recipe.alreadyWatched">
+          <img id="eye" src="../assets/eye.png" width="30px" height="30px">
+        </li>
+        <li v-if="recipe.inFavorites">
+          <img id="eye" src="../assets/alreadyLiked.jpeg" width="50px" height="30px">
+        </li>
       </ul>
     </div>
   </router-link>

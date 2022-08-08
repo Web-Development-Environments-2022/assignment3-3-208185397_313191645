@@ -2,7 +2,7 @@
   <div id="app">    
   <div id="nav">
 
-  <b-navbar type="light" variant="dark">
+  <b-navbar fixed="top" type="light" variant="dark">
     <b-navbar-nav>
       <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
@@ -24,6 +24,13 @@
     </div>
 
     <router-view />    
+
+        <b-modal ref="my-modal" hide-footer title="System Message">
+      <div class="d-block text-center">
+        <h3>{{modalMessage}}</h3>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>      
+    </b-modal>
   </div>
   
 </template>
@@ -31,6 +38,11 @@
 <script>
 export default {
   name: "App",
+  data(){
+    return {
+      modalMessage: ""
+    }
+  },
   methods: {
     Logout() {
       this.$root.store.logout();
@@ -39,7 +51,21 @@ export default {
       this.$router.push("/").catch(() => {
         this.$forceUpdate();
       });
-    }
+    },
+    // modal
+      showModal(message) {
+        this.modalMessage = message;
+        this.$refs['my-modal'].show()
+      },
+      hideModal() {
+        this.modalMessage = "";
+        this.$refs['my-modal'].hide()
+      },
+      toggleModal() {
+        // We pass the ID of the button that we want to return focus to
+        // when the modal has hidden
+        this.$refs['my-modal'].toggle('#toggle-btn')
+      }
   },
   computed:{
     concatHello:{
@@ -65,6 +91,7 @@ export default {
 
 #nav {
   position: relative;  
+  margin-bottom: 3%;
 }
 
 #nav a {
@@ -74,14 +101,14 @@ export default {
   
 }
 
-#nav a.router-link-exact-active {
+#nav a:hover {
   color: rgb(238, 141, 15);  
-  font-size: large;
+  
 }
 #guestLabel{
   color: burlywood;
   font-weight: bold;
-  font-size: large;
+  
 }
 
 </style>
