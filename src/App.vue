@@ -25,7 +25,7 @@
 
     <router-view />    
 
-        <b-modal ref="my-modal" hide-footer title="System Message">
+      <b-modal ref="my-modal" hide-footer title="System Message">
       <div class="d-block text-center">
         <h3>{{modalMessage}}</h3>
       </div>
