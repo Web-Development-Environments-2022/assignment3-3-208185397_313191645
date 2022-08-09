@@ -5,8 +5,8 @@
       <slot></slot>
     </h3>
     <div v-if="isVertical">
-      <div v-if="recipes.length>0">
-      <b-col v-for="(lst, index) in recipes" :key="index" >
+      <div v-if="this.recipeFives.length>0">
+      <b-col v-for="(lst, index) in this.recipeFives" :key="index" >
       <b-row v-for="(r) in lst" :key="r.id">
         
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -20,8 +20,8 @@
       </div>
     </div>
     <div v-else>
-      <div v-if="recipes.length>0">
-      <b-row v-for="(lst, index) in recipes" :key="index" >
+      <div v-if="this.recipeFives.length>0">
+      <b-row v-for="(lst, index) in this.recipeFives" :key="index" >
       <b-col v-for="(r) in lst" :key="r.id">
         
         <RecipePreview class="recipePreview" :recipe="r" />
@@ -88,24 +88,37 @@ export default {
         this.recipes = [];
         this.recipes.push(...recipes);
         // one big array
+        
+        // console.log(this.recipes);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async sortRecipes(){
+      if(this.sort == "Popularity (descending)")
+          this.recipes.sort((rec1, rec2) => rec1.popularity < rec2.popularity ? 1 : -1);    
+      else if(this.sort == "Preperation time (ascending)")
+        this.recipes.sort((rec1, rec2) => rec1.prepTime > rec2.prepTime ? 1 : -1);   
+    }
+  },
+  computed:{
+    recipeFives:{
+      get: function(){  
+        this.sortRecipes();      
         let recipesFives = [];
         let fives = -1;
-        for(const recipe of recipes){
-          let index = recipes.indexOf(recipe);
+        for(const recipe of this.recipes){
+          let index = this.recipes.indexOf(recipe);
           if(index%5 == 0){
             fives+=1;
             recipesFives.push([])
           }
           recipesFives[fives].push(recipe);
         }
-        this.recipes = recipesFives;
-        // console.log(this.recipes);
-      } catch (error) {
-        console.log(error);
+        return recipesFives;
       }
     }
-  },
-  
+  }
 };
 </script>
 
