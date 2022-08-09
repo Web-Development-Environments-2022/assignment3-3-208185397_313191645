@@ -47,12 +47,21 @@
       </multiselect>    
       </div>    
     </div>    
+      <multiselect
+      v-model="selection.sorting"
+      :options="['Popularity (descending)','Preperation time (ascending)']"
+      placeholder="select to sort"
+      style="max-width: 300px; left: 43%; right: auto;"      
+      :allowEmpty="true"
+      >      
+    </multiselect>  
     <div class="d-flex justify-content-center pt-3">    
       <b-button @click="Submit"  variant="success" >Search</b-button>
     </div>
-    <div>
+    
+    <div class="resultsWrapper">
       <RecipePreviewList id="searchResult" v-if="did_search"
-      title="Search Results" :source= 'search_query'
+      title="Search Results" :source= 'search_query' :sort="selection.sorting"
       :class="{
         RandomRecipes: true,
         blur: !$root.store.username,
@@ -81,7 +90,8 @@
             selected_cuisines:[],
             selected_intolerances:[],
             selected_amount: 5,
-            search_string: ''
+            search_string: '',
+            sorting: ''
         },        
         did_search: false,
         search_query: ''     
