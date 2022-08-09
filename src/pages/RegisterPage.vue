@@ -26,6 +26,50 @@
       </b-form-group>
 
       <b-form-group
+        id="input-group-firstname"
+        label-cols-sm="3"
+        label="First Name:"
+        label-for="firstName"
+      >
+      <b-form-input
+          id="firstName"
+          v-model="$v.form.firstName.$model"
+          type="text"          
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-lastname"
+        label-cols-sm="3"
+        label="Last Name:"
+        label-for="lastName"
+      >
+      <b-form-input
+          id="lastName"
+          v-model="$v.form.lastName.$model"
+          type="text"          
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        id="input-group-email"
+        label-cols-sm="3"
+        label="Email:"
+        label-for="email"
+      >
+      <b-form-input
+          id="email"
+          v-model="$v.form.email.$model"
+          type="email"          
+          :state="validateState('email')"
+        ></b-form-input>
+      
+      <b-form-invalid-feedback v-if="!$v.form.username.email">
+          Incorrect email
+        </b-form-invalid-feedback>
+      </b-form-group>
+
+      <b-form-group
         id="input-group-country"
         label-cols-sm="3"
         label="Country:"
@@ -65,6 +109,16 @@
           v-if="$v.form.password.required && !$v.form.password.length"
         >
           Have length between 5-10 characters long
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="!$v.form.password.specialChar"
+        >
+          Password must contain a special char [@^*!#$%&?=/\-+~]
+        </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="!$v.form.password.number "
+        >
+          Password must contain at least one number
         </b-form-invalid-feedback>
       </b-form-group>
 
@@ -161,11 +215,22 @@ export default {
       },
       password: {
         required,
-        length: (p) => minLength(5)(p) && maxLength(10)(p)
+        length: (p) => minLength(5)(p) && maxLength(10)(p),
+        specialChar: (p) => /(?=.*[@^*!#$%&?=/\-+~ "])/.test(p),
+        number: (p) => /(?=.*\d)/.test(p)
       },
       confirmedPassword: {
         required,
         sameAsPassword: sameAs("password")
+      },
+      firstName:{
+
+      },
+      lastName:{
+
+      },
+      email: {
+        email
       }
     }
   },
@@ -190,7 +255,10 @@ export default {
               username: this.form.username,
               password: this.form.password
             },
-            country: this.form.country
+            country: this.form.country,
+            firstName: this.form.firstName,
+            lastName: this.form.lastName,
+            email: this.form.email
           }
         );
         

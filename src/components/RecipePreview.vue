@@ -5,6 +5,9 @@
   >
     <div class="recipe-body">
       <img v-if="image_load" :src="recipe.imageUri" class="recipe-image" />
+      <!--
+<img v-else src="../assets/unavailableImage.jpg" class="recipe-image">
+      -->
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title" style="text-align:center">

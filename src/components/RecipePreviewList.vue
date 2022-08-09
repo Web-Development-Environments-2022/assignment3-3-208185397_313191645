@@ -56,7 +56,11 @@ export default {
     },
     isVertical:{
       type: Boolean,
-      required: true
+      required: false
+    },
+    sort:{
+      type: String,
+      required: false
     }
   },
   data() {
@@ -65,7 +69,7 @@ export default {
     };
   },
   mounted() {
-    this.updateRecipes();
+    this.updateRecipes();    
   },
   methods: {
     async updateRecipes() {
@@ -76,8 +80,14 @@ export default {
         );
 
         const recipes = response.data;
+        if(this.sort == "Popularity (descending)")
+          recipes.sort((rec1, rec2) => rec1.popularity < rec2.popularity ? 1 : -1);    
+        else if(this.sort == "Preperation time (ascending)")
+          recipes.sort((rec1, rec2) => rec1.prepTime > rec2.prepTime ? 1 : -1);    
+
         this.recipes = [];
         this.recipes.push(...recipes);
+        // one big array
         let recipesFives = [];
         let fives = -1;
         for(const recipe of recipes){
@@ -94,7 +104,8 @@ export default {
         console.log(error);
       }
     }
-  }
+  },
+  
 };
 </script>
 
