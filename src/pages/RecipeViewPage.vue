@@ -3,9 +3,14 @@
   <div v-if="recipe">
     
     <div class="content">
+      <div @click="handleLike" class="watchLikes" id="like">
+            <img v-if="!recipe.isLiked" src="./../assets/pressLike.png" style="width: 60%; "/>            
+            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
+      </div>        
+      
       <div class="previewWrapper">
         <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>        
-      </div>      
+      </div>            
       <div class="ingredInstruc">
         <div class="ingred">
           <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients ({{recipe.numOfDishes}} dishes):</h3>          
@@ -160,15 +165,16 @@ ul li {
   margin-right: auto;
   width: 10%;
   display: flex;
+  padding-top: 10px;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .ingredInstruc{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   padding-left: 8%;
-  padding-top: 3%;
+  padding-top: 3.5%;
   font-size: large;
   display: flex;  
-  padding-top: 180px;
+  
 }
 .instruc{
   margin-left: auto;
@@ -197,7 +203,7 @@ ul li {
 .previewWrapper{
   display: block;
   margin: auto;
-  padding-top: 110px;  
+  padding-top: 40px;  
   max-height: 400px;
   max-width: 280px;
   min-height: 370px;
