@@ -9,13 +9,7 @@
       <b-col v-for="(lst, index) in this.recipeFives" :key="index" >
       <b-row v-for="(r) in lst" :key="r.id">
         <div>
-          <RecipePreview class="recipePreview" :recipe="r" />
-          <div class="likes" v-if="r.inFavorites">
-            <img  id="eye" src="../assets/alreadyLiked.jpeg" width="50px" height="30px">
-          </div>
-          <div @click="handleLike(r)"  v-else class="likes" >
-            <img class="likesClick" id="eye" src="../assets/pressLike.png" width="60px" height="50px">  
-          </div>          
+          <RecipePreview class="recipePreview" :recipe="r" />         
         </div>        
       </b-row>
       </b-col>
@@ -153,7 +147,7 @@ export default {
   min-height: 370px; // this to align images
 }
 .recipePreview:hover {
-  transform: scale(1.07); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  
 }
 .likes{
   position: relative;

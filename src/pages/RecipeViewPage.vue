@@ -2,18 +2,13 @@
 <div>
   <div v-if="recipe">
     
-    <div class="content">      
-      
-      <div class="previewWrapper">
-        <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>        
-      </div>            
-      
-      <div @click="handleLike" class="watchLikes" id="like">
-            <img v-if="!recipe.isLiked" src="./../assets/pressLike.png" style="width: 60%; "/>            
-            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
-      </div>        
-
+    <div class="content">            
       <div class="ingredInstruc">
+        <div>
+          <div class="previewWrapper">
+            <RecipePreview class="recipePrev" :recipe="this.recipePrev" :noExtend="false"></RecipePreview>        
+          </div>                    
+        </div>      
         <div class="ingred">
           <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients ({{recipe.numOfDishes}} dishes):</h3>          
           <small>Press on an ingredient to find it near by</small>
@@ -68,22 +63,9 @@ export default {
     getGoogleLink(ingredient) {            
       return `https://www.google.com/maps/search/${ingredient.split('|')[0]}+near+me`         
     },
-    async handleLike(){
-      if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
-      else if(!this.recipe.isLiked){        
-        await this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
-          {
-            "recipeId": this.recipe.id
-          }
-        ).then((res)=>{
-          this.recipe.isLiked = true;
-          this.recipe.aggregateLikes +=1;
-        }).catch((err) => {this.$parent.showModal("Cannot like recipe.. something went wrong")});      
-      }            
-      else{
-        this.$parent.showModal("Recipe already liked!");
-      }
-    },
+    async showModal(message){
+      this.$parent.showModal(message);
+    }
   },
   async created() {
     try {
@@ -176,10 +158,9 @@ ul li {
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 .ingredInstruc{
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  padding-left: 8%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  
   padding-top: 3.5%;
-  font-size: large;
+
   display: flex;  
   
 }
@@ -214,7 +195,8 @@ ul li {
   max-height: 400px;
   max-width: 280px;
   min-height: 370px;
-  margin-bottom: 26px;  
+  margin-right: 100px;
+  margin-left: 100px;
 }
 
 /* .recipe-header{

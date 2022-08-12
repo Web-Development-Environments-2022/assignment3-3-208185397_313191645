@@ -1,9 +1,11 @@
 <template>
-  <router-link
+<div>
+<router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
-    <div class="recipe-body">
+  <div class="intireWrapper">
+        <div class="recipe-body">
       <img v-if="image_load" :src="recipe.imageUri" class="recipe-image" />
       <!--
 <img v-else src="../assets/unavailableImage.jpg" class="recipe-image">
@@ -37,10 +39,20 @@
         </li>
         <li v-else>
           <img id="eye" src="../assets/noeye.png" width="30px" height="30px">
-        </li>
-      </ul>
+        </li>        
+      </ul>          
     </div>
+  </div>
   </router-link>
+  <div>
+    <div class="likebutton" @click="handleLike" v-if="recipe.inFavorites">
+      <img src="../assets/alreadyLiked.png" width="40px" height="40px">
+      </div>        
+      <div class="likebutton" @click="handleLike" v-else>
+          <img src="../assets/pressLike.png" width="40px" height="40px">  
+      </div>    
+    </div>  
+  </div>  
 </template>
 
 <script>
@@ -59,26 +71,53 @@ export default {
     recipe: {
       type: Object,
       required: true
+    },
+    noExtend:{
+      type: Boolean,
+      required: false
     }
+
   },
   methods: {
-    like(recipe){
-      alert(recipe);
+    async handleLike(){      
+
+      if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
+      else if(!this.recipe.inFavorites){        
+        await this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
+          {
+            "recipeId": this.recipe.id
+          }
+        ).then((res)=>{
+          this.recipe.inFavorites = true;
+          this.recipe.popularity +=1;
+        }).catch((err) => {this.$parent.showModal("Cannot like recipe.. something went wrong")});      
+      }            
+      else{
+        this.$parent.showModal("Recipe already liked!");
+      }      
+    },
+  },
+    computed: {
+    cssVars() {
+      return {
+        '--hover': 1.04
+      }
     }
   }
 };
 </script>
 
 <style scoped>
+.intireWrapper{
+  border: 2px solid black;
+  border-radius: 5px;
+}
 .recipe-preview {
   display: inline-block;
   width: 95%;
   height: 93%;
   position: relative;
   margin: 10px 10px;
-  
-  border: 2px solid black;
-  border-radius: 5px;
   color: black;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -108,7 +147,7 @@ export default {
 }
 
 .recipe-preview .recipe-footer .recipe-title {
-  padding: 10px 10px;
+  padding: 5px 5px;
   width: 100%;
   font-size: 12pt;
   text-align: left;
@@ -151,8 +190,16 @@ export default {
   text-align: center;
 
 }
+.recipe-preview:hover{
+  transform: scale(1.04);
+}
+.likebutton :hover{
+  transform: scale(1.1);
+  cursor: pointer;  
+}
 
-.recipe-body{
-  
+.likebutton{
+  margin-top: -50px;
+  margin-left: -32px;
 }
 </style>
