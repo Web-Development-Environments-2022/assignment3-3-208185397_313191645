@@ -2,7 +2,7 @@
   <div id="app">    
   <div id="nav">
 
-  <b-navbar fixed="top" type="light" variant="dark">
+  <b-navbar  tabs fill fixed="top" type="light" variant="dark">
     <b-navbar-nav>
       <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
@@ -18,6 +18,7 @@
           <b-dropdown-item :to="{ name: 'personal' }">Personal Recipes</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'family' }">Family Recipes</b-dropdown-item>
         </b-nav-item-dropdown>
+        <b-button @click="showRecipeModal">Create A Recipe</b-button>
         <b-nav-item v-if="$root.store.username" @click="Logout">LogOut</b-nav-item>
     </b-navbar-nav>    
       </b-navbar>
@@ -25,55 +26,72 @@
 
     <router-view />    
 
-      <b-modal ref="my-modal" hide-footer title="System Message">
+    <b-modal ref="my-modal" hide-footer title="System Message">
       <div class="d-block text-center">
         <h3>{{modalMessage}}</h3>
       </div>
       <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>      
+    </b-modal>
+  
+  <b-modal ref="recipe-modal" hide-footer title="Create a recipe">
+      <div class="d-block text-center">
+        <CreateRecipe></CreateRecipe>
+      </div>
+      <b-button class="mt-3" variant="outline-danger" block @click="hideRecipeModal">Close Me</b-button>      
     </b-modal>
   </div>
   
 </template>
 
 <script>
+import CreateRecipe from "./components/CreateRecipe.vue";
 export default {
-  name: "App",
-  data(){
-    return {
-      modalMessage: ""
-    }
-  },
-  methods: {
-    Logout() {
-      this.$root.store.logout();
-      this.$root.toast("Logout", "User logged out successfully", "success");
-
-      this.$router.push("/").catch(() => {
-        this.$forceUpdate();
-      });
+    components: {
+    CreateRecipe,
+},
+    name: "App",
+    data() {
+        return {
+            modalMessage: "",
+            showCreateRecipe: false
+        };
     },
-    // modal
-      showModal(message) {
-        this.modalMessage = message;
-        this.$refs['my-modal'].show()
-      },
-      hideModal() {
-        this.modalMessage = "";
-        this.$refs['my-modal'].hide()
-      },
-      toggleModal() {
-        // We pass the ID of the button that we want to return focus to
-        // when the modal has hidden
-        this.$refs['my-modal'].toggle('#toggle-btn')
-      }
-  },
-  computed:{
-    concatHello:{
-      get: function(){
-        return `Hello ${this.$root.store.username}`;
-      }
-    }
-  }
+    methods: {
+        Logout() {
+            this.$root.store.logout();
+            this.$root.toast("Logout", "User logged out successfully", "success");
+            this.$router.push("/").catch(() => {
+                this.$forceUpdate();
+            });
+        },
+        // modal
+        showModal(message) {
+            this.modalMessage = message;
+            this.$refs["my-modal"].show();
+        },
+        hideModal() {
+            this.modalMessage = "";
+            this.$refs["my-modal"].hide();
+        },
+        toggleModal() {
+            // We pass the ID of the button that we want to return focus to
+            // when the modal has hidden
+            this.$refs["my-modal"].toggle("#toggle-btn");
+        },
+        showRecipeModal(){
+            this.$refs["recipe-modal"].show();
+        },
+        hideRecipeModal(){
+            this.$refs["recipe-modal"].hide();
+        }
+    },
+    computed: {
+        concatHello: {
+            get: function () {
+                return `Hello ${this.$root.store.username}`;
+            }
+        }
+    }    
 };
 </script>
 
