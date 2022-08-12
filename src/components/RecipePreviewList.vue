@@ -8,9 +8,15 @@
       <div v-if="this.recipeFives.length>0">
       <b-col v-for="(lst, index) in this.recipeFives" :key="index" >
       <b-row v-for="(r) in lst" :key="r.id">
-        
-        <RecipePreview class="recipePreview" :recipe="r" />
-
+        <div>
+          <RecipePreview class="recipePreview" :recipe="r" />
+          <div class="likes" v-if="r.inFavorites">
+            <img  id="eye" src="../assets/alreadyLiked.jpeg" width="50px" height="30px">
+          </div>
+          <div @click="handleLike(r)"  v-else class="likes" >
+            <img class="likesClick" id="eye" src="../assets/pressLike.png" width="60px" height="50px">  
+          </div>          
+        </div>        
       </b-row>
       </b-col>
       </div>
@@ -99,6 +105,22 @@ export default {
           this.recipes.sort((rec1, rec2) => rec1.popularity < rec2.popularity ? 1 : -1);    
       else if(this.sort == "Preperation time (ascending)")
         this.recipes.sort((rec1, rec2) => rec1.prepTime > rec2.prepTime ? 1 : -1);   
+    },
+    async handleLike(r){
+      if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
+      else if(!r.inFavorites){        
+        await this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
+          {
+            "recipeId": r.id
+          }
+        ).then((res)=>{
+          r.inFavorites = true;
+          r.popularity +=1;
+        }).catch((err) => {this.$parent.showModal("Cannot like recipe.. something went wrong")});      
+      }            
+      else{
+        this.$parent.showModal("Recipe already liked!");
+      }      
     }
   },
   computed:{
@@ -123,9 +145,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-  min-height: 400px;
-}
+
 .recipePreview{
 
   max-height: 400px;
@@ -134,5 +154,15 @@ export default {
 }
 .recipePreview:hover {
   transform: scale(1.07); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.likes{
+  position: relative;
+  left: 75%;
+  bottom: 14.5%;
+  
+}
+.likesClick:hover{
+  cursor: pointer;
+  transform: scale(1.07);
 }
 </style>

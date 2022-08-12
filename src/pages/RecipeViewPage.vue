@@ -66,17 +66,21 @@ export default {
     getGoogleLink(ingredient) {            
       return `https://www.google.com/maps/search/${ingredient.split('|')[0]}+near+me`         
     },
-    handleLike(){
+    async handleLike(){
       if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
       else if(!this.recipe.isLiked){        
-        this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
+        await this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
           {
             "recipeId": this.recipe.id
           }
         ).then((res)=>{
-          this.recipe.isLiked = !this.recipe.isLiked;
+          this.recipe.isLiked = true;
+          this.recipe.aggregateLikes +=1;
         }).catch((err) => {this.$parent.showModal("Cannot like recipe.. something went wrong")});      
       }            
+      else{
+        this.$parent.showModal("Recipe already liked!");
+      }
     },
   },
   async created() {

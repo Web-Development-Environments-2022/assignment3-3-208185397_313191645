@@ -23,14 +23,20 @@
         <li v-if="recipe.vegan">
           <img id="vegan"  src="../assets/vegan.png" width="30px" height="30px">
         </li>
+        <li v-else>
+          <img id="vegan"  src="../assets/novegan.png" width="30px" height="30px">
+        </li>
         <li v-if="recipe.glutenFree">
           <img id="glutenFree"  src="../assets/glutenFree.jpg" width="30px" height="30px">
+        </li>
+        <li v-else>
+          <img id="glutenFree"  src="../assets/noglutenFree.png" width="30px" height="30px">
         </li>
         <li v-if="recipe.alreadyWatched">
           <img id="eye" src="../assets/eye.png" width="30px" height="30px">
         </li>
-        <li v-if="recipe.inFavorites">
-          <img id="eye" src="../assets/alreadyLiked.jpeg" width="50px" height="30px">
+        <li v-else>
+          <img id="eye" src="../assets/noeye.png" width="30px" height="30px">
         </li>
       </ul>
     </div>
@@ -41,8 +47,7 @@
 export default {
   mounted() {
     this.axios.get(this.recipe.imageUri).then((i) => {
-      this.image_load = true;
-      console.log(this.recipe)
+      this.image_load = true;      
     });
   },
   data() {

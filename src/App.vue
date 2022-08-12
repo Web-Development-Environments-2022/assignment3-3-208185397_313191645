@@ -6,6 +6,7 @@
     <b-navbar-nav>
       <b-nav-item :to="{ name: 'main' }">Home</b-nav-item>
       <b-nav-item :to="{ name: 'search' }">Search</b-nav-item>
+      <b-nav-item :to="{ name: 'about' }">About</b-nav-item>
     </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
       <!-- guest -->
@@ -18,7 +19,7 @@
           <b-dropdown-item :to="{ name: 'personal' }">Personal Recipes</b-dropdown-item>
           <b-dropdown-item :to="{ name: 'family' }">Family Recipes</b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-button @click="showRecipeModal">Create A Recipe</b-button>
+        <b-button v-if="$root.store.username" id="createRecipe" @click="showRecipeModal">Create A Recipe</b-button>
         <b-nav-item v-if="$root.store.username" @click="Logout">LogOut</b-nav-item>
     </b-navbar-nav>    
       </b-navbar>
@@ -39,6 +40,15 @@
       </div>
       <b-button class="mt-3" variant="outline-danger" block @click="hideRecipeModal">Close Me</b-button>      
     </b-modal>
+  
+  <footer class="footer">
+    <div>
+      © 2020 Copyright: <a class="textwhite" href="mailto: koroli@post.bgu.ac.il">Ilan Korol</a> and <a class="textwhite" href="mailto: benaid@post.bgu.ac.il">Ben Aidlin</a>, @BGU, 2022
+    </div>
+    
+  </footer>
+
+
   </div>
   
 </template>
@@ -83,7 +93,7 @@ export default {
         },
         hideRecipeModal(){
             this.$refs["recipe-modal"].hide();
-        }
+        },
     },
     computed: {
         concatHello: {
@@ -128,5 +138,27 @@ export default {
   font-weight: bold;
   
 }
-
+#createRecipe{
+  background-color: burlywood;
+  color: #000;
+  font-style: italic;  
+  font-weight: bold;
+}
+#createRecipe:hover{
+  background-color: rgb(238, 141, 15);    
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #343a40;
+  color: white;
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.textwhite{
+  color: burlywood;
+}
 </style>
