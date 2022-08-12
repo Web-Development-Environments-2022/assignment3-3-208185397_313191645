@@ -2,15 +2,17 @@
 <div>
   <div v-if="recipe">
     
-    <div class="content">
-      <div @click="handleLike" class="watchLikes" id="like">
-            <img v-if="!recipe.isLiked" src="./../assets/pressLike.png" style="width: 60%; "/>            
-            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
-      </div>        
+    <div class="content">      
       
       <div class="previewWrapper">
         <RecipePreview class="recipePrev" :recipe="this.recipePrev"></RecipePreview>        
       </div>            
+      
+      <div @click="handleLike" class="watchLikes" id="like">
+            <img v-if="!recipe.isLiked" src="./../assets/pressLike.png" style="width: 60%; "/>            
+            <img v-else src="./../assets/alreadyLiked.jpeg" style="width: 60%; "/>
+      </div>        
+
       <div class="ingredInstruc">
         <div class="ingred">
           <h3 style="padding-left: 6px; text-decoration: underline;">Ingredients ({{recipe.numOfDishes}} dishes):</h3>          
@@ -164,6 +166,7 @@ ul li {
   width: 25%;
 }
 .watchLikes{
+  left: 100px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
@@ -198,7 +201,7 @@ ul li {
   padding-left: 3px;
 }
 #like{
-  cursor: pointer;
+  cursor: pointer;  
 }
 .recipePrev{
   transform: scale(1.25);  
@@ -211,6 +214,7 @@ ul li {
   max-height: 400px;
   max-width: 280px;
   min-height: 370px;
+  margin-bottom: 26px;  
 }
 
 /* .recipe-header{

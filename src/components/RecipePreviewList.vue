@@ -106,8 +106,8 @@ export default {
       else if(this.sort == "Preperation time (ascending)")
         this.recipes.sort((rec1, rec2) => rec1.prepTime > rec2.prepTime ? 1 : -1);   
     },
-    async handleLike(r){
-      if(!this.$root.store.username) this.$parent.showModal("You need to register first!");
+    async handleLike(r){      
+      if(!this.$root.store.username) this.$parent.showModal("You need to log in first!");
       else if(!r.inFavorites){        
         await this.axios.post(this.$root.store.server_domain + "/Users/FavoriteRecipes",
           {

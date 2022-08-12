@@ -133,7 +133,6 @@
         for(let into of this.selection.selected_intolerances){
           this.search_query += ('&intollerance=' + into);
         }
-        alert(this.search_query)
         var ls = localStorage.setItem("search_query", this.search_query);
         this.did_search = true;
         });

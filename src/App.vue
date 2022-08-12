@@ -43,9 +43,8 @@
   
   <footer class="footer">
     <div>
-      © 2020 Copyright: <a class="textwhite" href="mailto: koroli@post.bgu.ac.il">Ilan Korol</a> and <a class="textwhite" href="mailto: benaid@post.bgu.ac.il">Ben Aidlin</a>, @BGU, 2022
-    </div>
-    
+      © 2022 Copyright: <a class="textwhite" href="mailto: koroli@post.bgu.ac.il">Ilan Korol</a> and <a class="textwhite" href="mailto: benaid@post.bgu.ac.il">Ben Aidlin</a>, @BGU
+    </div>    
   </footer>
 
 
@@ -97,7 +96,7 @@ export default {
     },
     computed: {
         concatHello: {
-            get: function () {
+            get: function () {              
                 return `Hello ${this.$root.store.username}`;
             }
         }

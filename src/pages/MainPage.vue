@@ -2,7 +2,10 @@
   <div class="container"> <br>
     <h1 class="title">Main Page</h1>
     <div class="wrapper">
-      <RecipePreviewList title="Randome Recipes" source="/recipes/random" isVertical="true" class="RandomRecipes center" />
+      <div>
+        <RecipePreviewList ref="randomRecipes" title="Explore these recipes" source="/recipes/random" isVertical="true" class="RandomRecipes center" />
+        <b-button @click="suffleRandom" variant="success" style="margin-bottom: 40%">Shuffle</b-button>
+      </div>      
     <!--
  <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
     --> 
@@ -35,6 +38,14 @@ export default {
   components: {
     RecipePreviewList,
     LoginPage
+  },
+  methods:{
+    showModal(message){
+      this.$parent.showModal(message);
+    },
+    suffleRandom(){
+      this.$refs['randomRecipes'].updateRecipes();
+    }
   }
 };
 </script>
@@ -64,8 +75,7 @@ export default {
   color: black;
   max-height: 350px;
 }
-.loginWrapper{
-  padding-top: 100px;
+.loginWrapper{  
   padding-left: 100px;
 }
 </style>
