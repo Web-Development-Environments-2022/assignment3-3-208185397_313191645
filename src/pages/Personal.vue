@@ -3,6 +3,7 @@
     <h1 class="title">My Recipes</h1>
     <div>
         <RecipePreviewList title="My Personal Posts" source="/Users/MyRecipes" class="RandomRecipes" />  
+        <br>
         <b-button @click="changeView"  variant="success" >Create New Recipe</b-button>
     </div>        
   </div>

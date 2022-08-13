@@ -60,6 +60,7 @@
         <b-list-group-item><a class="links" href="https://web-development-environments-2022.github.io/assignment2-313191645_208185397/" target=”_blank”>PAC-Man game in HTML5</a></b-list-group-item>
         <b-list-group-item><a class="links" href="https://app.swaggerhub.com/apis/BenAidlin/RecepieBookAPI/1.0.0" target=”_blank”>Web API documentation in swagger.io</a></b-list-group-item>
     </b-list-group>
+    <br><br><br><br>
   </div>
   </div>
 </template>
