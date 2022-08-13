@@ -2,6 +2,7 @@
   <div class="container"> <br>
     <h1 class="title">Favorites</h1>
     <RecipePreviewList title="Favorite Recipes" source="/Users/FavoriteRecipes" class="RandomRecipes" />        
+    <br><br><br><br>
   </div>
 </template>
 

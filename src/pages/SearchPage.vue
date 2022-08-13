@@ -68,7 +68,7 @@
         center: true
       }"
       disabled
-    ></RecipePreviewList>
+    ></RecipePreviewList><br><br><br><br>
     </div>
   </div>
 </template>

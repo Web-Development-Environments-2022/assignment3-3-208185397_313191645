@@ -23,22 +23,22 @@
       </ul>
       <ul class="recipe-overview">
         <li v-if="recipe.vegan">
-          <img id="vegan"  src="../assets/vegan.png" width="30px" height="30px">
+          <img id="vegan" v-b-tooltip.hover.left="'Vegan'" src="../assets/vegan.png" width="30px" height="30px">
         </li>
         <li v-else>
-          <img id="vegan"  src="../assets/novegan.png" width="30px" height="30px">
+          <img id="vegan" v-b-tooltip.hover.left="'Not vegan'" src="../assets/novegan.png" width="30px" height="30px">
         </li>
         <li v-if="recipe.glutenFree">
-          <img id="glutenFree"  src="../assets/glutenFree.jpg" width="30px" height="30px">
+          <img id="glutenFree" v-b-tooltip.hover.left="'Gluten free'" src="../assets/glutenFree.jpg" width="30px" height="30px">
         </li>
         <li v-else>
-          <img id="glutenFree"  src="../assets/noglutenFree.png" width="30px" height="30px">
+          <img id="glutenFree" v-b-tooltip.hover.left="'Not gluten free'" src="../assets/noglutenFree.png" width="30px" height="30px">
         </li>
         <li v-if="recipe.alreadyWatched">
-          <img id="eye" src="../assets/eye.png" width="30px" height="30px">
+          <img id="eye" v-b-tooltip.hover.left="'Already watched'" src="../assets/eye.png" width="30px" height="30px">
         </li>
         <li v-else>
-          <img id="eye" src="../assets/noeye.png" width="30px" height="30px">
+          <img id="eye" v-b-tooltip.hover.left="'No watched yet'" src="../assets/noeye.png" width="30px" height="30px">
         </li>        
       </ul>          
     </div>

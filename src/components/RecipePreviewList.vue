@@ -17,7 +17,9 @@
       
       <div v-else>
           <div v-if="waiting">
-
+            <div>
+              <b-spinner class="m-5" label="Busy"></b-spinner>
+            </div>
           </div>
           <div v-else>
             No recipes to show...
@@ -36,8 +38,15 @@
       </div>
       
       <div v-else>
-          No recipes to show...
-      </div>      
+          <div v-if="waiting">
+            <div>
+              <b-spinner class="m-5" label="Busy"></b-spinner>
+            </div>
+          </div>
+          <div v-else>
+            No recipes to show...
+          </div>          
+      </div>   
     </div>
     
   </b-container>
