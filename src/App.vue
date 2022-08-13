@@ -34,7 +34,7 @@
       <b-button class="mt-3" variant="outline-danger" block @click="hideModal">Close Me</b-button>      
     </b-modal>
   
-  <b-modal ref="recipe-modal" hide-footer title="Create a recipe">
+  <b-modal ref="recipe-modal" hide-footer title="Create a recipe" size="xl">
       <div class="d-block text-center">
         <CreateRecipe></CreateRecipe>
       </div>

@@ -1,6 +1,6 @@
 <template>
-<div>      
-        <div>                    
+<div class="container">      
+    <div class="left">                    
       <b-form @submit.prevent="onAdd" @reset.prevent="onReset">
       <b-form-group
         id="input-group-title"
@@ -88,12 +88,8 @@
             <b-form-input placeholder="ingredient name" id="ingredient name" v-model="ingredientName"></b-form-input>
         <b-form-input placeholder="ingredient amount" id="ingredient amount" v-model="ingredientAmount"></b-form-input>
         </div>        
-        <b-button @click="addIngredient">Add Ingredient</b-button>
-        <div id="ingredents">
-            Added Ingredients = {{created_recipe.ingredients.split('&')}}
-        </div>
-    </b-form-group>
-
+        <b-button @click="addIngredient">Add Ingredient</b-button>        
+    </b-form-group>    
     
     <!--------------------------------------------------------------------->
       <b-button type="reset" variant="danger">Reset</b-button>
@@ -109,7 +105,15 @@
         
 
     </div>
-               
+    
+    <div class="right"><br>
+      <h5>Added ingredients:</h5>
+      <b-list-group>  
+        <b-list-group-item v-for="(i, index) in created_recipe.ingredients.split('&')"
+          :key="index + '_' + i"
+        >{{i}}</b-list-group-item>
+      </b-list-group>
+    </div>               
 
 </div>
 </template>
@@ -182,6 +186,7 @@ export default {
 
         },
         addIngredient(){
+            if(this.ingredientName=="" || this.ingredientAmount=="") return;
             this.created_recipe.ingredients += " " + this.ingredientName + " | " + this.ingredientAmount + " & ";
             this.ingredientName = "";
             this.ingredientAmount = "";
@@ -191,5 +196,14 @@ export default {
 </script>
 
 <style>
-
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+}
+.right{
+  margin-left: 4px;
+}
+.left{
+  margin-right: 4px;
+}
 </style>
