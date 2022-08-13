@@ -131,7 +131,7 @@
         }
         if(this.selection.selected_diet!='' && this.selection.selected_diet!=null) this.search_query+=('&diet=' + this.selection.selected_diet)        
         for(let into of this.selection.selected_intolerances){
-          this.search_query += ('&intollerance=' + into);
+          this.search_query += ('&intollerances=' + into);
         }
         var ls = localStorage.setItem("search_query", this.search_query);
         this.did_search = true;
