@@ -2,10 +2,7 @@
   <div class="container"> <br>
     <h1 class="title">Family Recipes</h1>    
     <div v-for="(rec, index) in famRecipes" :key="index">          
-        <b-tooltip target="c" triggers="hover">
-            Press to view
-        </b-tooltip>
-        <div class="openable" id="c" @click="rec.show = !rec.show"><h3 class="title">{{rec.title}}</h3></div> 
+        <div v-b-tooltip.hover.left="'Press to ' + (!rec.show ? 'view' : 'hide') + ' recipe'" class="openable" :id="index.toString()+'_'" @click="rec.show = !rec.show"><h3 class="title">{{rec.title}}</h3></div> 
         <div v-if="rec.show">            
             <b-carousel
             id="carousel-1"
@@ -16,7 +13,7 @@
             background="#ababab"
             img-width="800"
             img-height="600"
-            style="text-shadow: 1px 1px 2px #333;"
+            style="text-shadow: 1px 2px 5px #000;"
             @sliding-start="onSlideStart"
             @sliding-end="onSlideEnd"
             >
@@ -41,18 +38,19 @@ export default {
     return {
         famRecipes:[
             {
-                title: "Florit's Famous Spaghetti Bolognese >",
-                slides: [{caption:"Usually prepared for", text:"For friday's dinners during exam's.. It's the ultimate comforter!", 
-                        imageUri: "https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2018%2F12%2Fbac7bccadf687899416e297cedfcd7afce9e04ca.jpeg"},
-                    {caption:"Ingredients", text:"ground beef 0.7 kilo | 1.5 white onion | 1 can tomato sauce | 1 can tomato sauce in flavor of bolognse | 0.5 tp salt | 0.5 tp black ppeper | 0.5 tp cumin| 0.5 tp garlic pouder | 750 gr fresh pasta", 
-                        imageUri:"https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/k%2FPhoto%2FRecipes%2F2021-12-spaghetti%2F211208_ApartmentTherapy_Spaghetti_0172"},
-                    {caption:"Instructions", text:`Cut the onions into small cubes and then fry them on medium heat until they become golden and almost clear. When you finished move the to a plate and put aside.
-                                Start frying the meat (recommended in the same pan where  the onion was) , while frying it is recommended slice the meat with the spatula in order for not having lumps later, add the salt and balck pepper while frying the meat.
-                                after around 25 minutes of frying (the meat should look ready and there is no water in the pan), add in the canes of the tomato and the tomato sauce in flavor of bolognse, after adding them fill the tomato sauce can with water: around 2/3 and add it too.
-                                Now put in the cumin and the garlic pouder, and add the fried onion, mix everything together and let in cook for around 7-10 minutes (depending on the pasta time).
-                                While you are waiting start coocking the pasta according to manufacturer's instructions that are written on the box.
-                                when the pasta is ready add it to the sauce mix it all together and serve`, 
-                        imageUri:"https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2018%2F12%2F20f823af9d31a7ab5f55079227cab188959e36e6.jpeg"}],                
+                title: "Florit's Amazing Shepered Pie >",
+                slides: [{caption:"Usually prepared for", text:"Fancy dinners, where the friends haven't met in a while..", 
+                        imageUri: "https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2016%2F10%2Fa67abefd77353c737e3b9f76e8fec8c4925d198d.jpeg"},
+                    {caption:"Ingredients", text:"6 medium red potatos | 1 kilo ground beef | 1 big white onion | 4 garlic cloves | 0.5 tp salt | 0.5 tp black ppeper | 0.25 tp cumin", 
+                        imageUri:"https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2012%2F11%2F7567828aa3c366ec6300999265923f4f9f3064b4.jpeg"},
+                    {caption:"Instructions",text:`Chop the potato into medium size cubes and slice the onion into small pieces.
+                                boil water in a pot, when they are boiling add the potato cubes, and let the cook for around 30 minutes (until the are very soft).
+                                Start frying the meat , while frying it is recommended slice the meat with the spatula in order for not having lumps later, add the salt balck pepper and cumin while frying the meat.
+                                fry the onion until it golden clear around 20 minutes on medium heat.
+                                the potato should be ready by now, smash the good so there is no lumpers in the potato (almost like puree) and then add the onion.
+                                when the meat is ready take a deep oven plate and put 1/3 of the puree and on top of that put 2/3 of the beef and than again 1/3 of puree and the rest of the meat and close it up with the rest amound of puree.
+                                put it all in the oven at 180 degrees for around 10-15 minutes. Take it out when it looks good! and serve`, 
+                        imageUri:"https://www.potatobusiness.com/wp-content/uploads/teaser-print.jpg"}],                
                         show:false
             },
             {
@@ -70,21 +68,20 @@ export default {
                         show:false
             },
             {
-                title: "Florit's Amazing Shepered Pie >",
-                slides: [{caption:"Usually prepared for", text:"Fancy dinners, where the friends haven't met in a while..", 
-                        imageUri: "https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2016%2F10%2Fa67abefd77353c737e3b9f76e8fec8c4925d198d.jpeg"},
-                    {caption:"Ingredients", text:"6 medium red potatos | 1 kilo ground beef | 1 big white onion | 4 garlic cloves | 0.5 tp salt | 0.5 tp black ppeper | 0.25 tp cumin", 
-                        imageUri:"https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2012%2F11%2F7567828aa3c366ec6300999265923f4f9f3064b4.jpeg"},
-                    {caption:"Instructions",text:`Chop the potato into medium size cubes and slice the onion into small pieces.
-                                boil water in a pot, when they are boiling add the potato cubes, and let the cook for around 30 minutes (until the are very soft).
-                                Start frying the meat , while frying it is recommended slice the meat with the spatula in order for not having lumps later, add the salt balck pepper and cumin while frying the meat.
-                                fry the onion until it golden clear around 20 minutes on medium heat.
-                                the potato should be ready by now, smash the good so there is no lumpers in the potato (almost like puree) and then add the onion.
-                                when the meat is ready take a deep oven plate and put 1/3 of the puree and on top of that put 2/3 of the beef and than again 1/3 of puree and the rest of the meat and close it up with the rest amound of puree.
-                                put it all in the oven at 180 degrees for around 10-15 minutes. Take it out when it looks good! and serve`, 
-                        imageUri:"https://www.potatobusiness.com/wp-content/uploads/teaser-print.jpg"}],                
+                title: "Florit's Famous Spaghetti Bolognese >",
+                slides: [{caption:"Usually prepared for", text:"For friday's dinners during exam's.. It's the ultimate comforter!", 
+                        imageUri: "https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2018%2F12%2Fbac7bccadf687899416e297cedfcd7afce9e04ca.jpeg"},
+                    {caption:"Ingredients", text:"ground beef 0.7 kilo | 1.5 white onion | 1 can tomato sauce | 1 can tomato sauce in flavor of bolognse | 0.5 tp salt | 0.5 tp black ppeper | 0.5 tp cumin| 0.5 tp garlic pouder | 750 gr fresh pasta", 
+                        imageUri:"https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/k%2FPhoto%2FRecipes%2F2021-12-spaghetti%2F211208_ApartmentTherapy_Spaghetti_0172"},
+                    {caption:"Instructions", text:`Cut the onions into small cubes and then fry them on medium heat until they become golden and almost clear. When you finished move the to a plate and put aside.
+                                Start frying the meat (recommended in the same pan where  the onion was) , while frying it is recommended slice the meat with the spatula in order for not having lumps later, add the salt and balck pepper while frying the meat.
+                                after around 25 minutes of frying (the meat should look ready and there is no water in the pan), add in the canes of the tomato and the tomato sauce in flavor of bolognse, after adding them fill the tomato sauce can with water: around 2/3 and add it too.
+                                Now put in the cumin and the garlic pouder, and add the fried onion, mix everything together and let in cook for around 7-10 minutes (depending on the pasta time).
+                                While you are waiting start coocking the pasta according to manufacturer's instructions that are written on the box.
+                                when the pasta is ready add it to the sauce mix it all together and serve`, 
+                        imageUri:"https://cdn.apartmenttherapy.info/image/fetch/f_auto,q_auto:eco,c_fill,g_auto,w_800,h_400/https%3A%2F%2Fstorage.googleapis.com%2Fgen-atmedia%2F3%2F2018%2F12%2F20f823af9d31a7ab5f55079227cab188959e36e6.jpeg"}],                
                         show:false
-            }
+            }            
         ]   
     };
   },
@@ -102,5 +99,8 @@ export default {
 }
 .openable :hover{
     cursor: pointer;
+}
+.tooltip{
+    left:50%;
 }
 </style>

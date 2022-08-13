@@ -3,8 +3,8 @@
     <h1 class="title">Main Page</h1>
     <div class="wrapper">
       <div>
-        <RecipePreviewList ref="randomRecipes" title="Explore these recipes" source="/recipes/random" isVertical="true" class="RandomRecipes center" />
-        <b-button @click="suffleRandom" variant="success" style="margin-bottom: 40%">Shuffle</b-button>
+        <RecipePreviewList ref="randomRecipes" title="Explore these recipes" source="/recipes/random" isVertical="true" class="RandomRecipes center" />        
+        <b-button v-b-tooltip.hover.left="'Show me different recipes'" @click="suffleRandom" variant="success" style="margin-bottom: 40%">Shuffle</b-button>
       </div>      
     <!--
  <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>

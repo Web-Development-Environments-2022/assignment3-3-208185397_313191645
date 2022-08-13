@@ -88,7 +88,8 @@
             <b-form-input placeholder="ingredient name" id="ingredient name" v-model="ingredientName"></b-form-input>
         <b-form-input placeholder="ingredient amount" id="ingredient amount" v-model="ingredientAmount"></b-form-input>
         </div>        
-        <b-button @click="addIngredient">Add Ingredient</b-button>        
+        <b-button v-b-tooltip.hover.top="'You will see added ingredients on the right!'" class="mt-2" 
+          variant="primary" @click="addIngredient">Add Ingredient</b-button>        
     </b-form-group>    
     
     <!--------------------------------------------------------------------->

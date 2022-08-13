@@ -16,7 +16,12 @@
       </div>
       
       <div v-else>
-          No recipes to show...
+          <div v-if="waiting">
+
+          </div>
+          <div v-else>
+            No recipes to show...
+          </div>          
       </div>
     </div>
     <div v-else>
@@ -65,7 +70,8 @@ export default {
   },
   data() {
     return {
-      recipes: []
+      recipes: [],
+      waiting: false
     };
   },
   mounted() {
@@ -74,6 +80,7 @@ export default {
   methods: {
     async updateRecipes() {
       try {
+        this.waiting = true;
         const response = await this.axios.get(
           this.$root.store.server_domain + this.source, 
           {withCredentials: true}
@@ -93,6 +100,7 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      this.waiting = false;
     },
     async sortRecipes(){
       if(this.sort == "Popularity (descending)")
