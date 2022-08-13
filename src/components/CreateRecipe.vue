@@ -19,7 +19,7 @@
     <b-form-group
         id="input-group-time"
         label-cols-sm="3"
-        label="Preperation Time:"
+        label="Preperation Time(in minutes):"
         label-for="time"
       >
         <b-form-input
@@ -105,15 +105,27 @@
         
 
     </div>
-    
+
     <div class="right"><br>
-      <h5>Added ingredients:</h5>
-      <b-list-group>  
-        <b-list-group-item v-for="(i, index) in created_recipe.ingredients.split('&')"
-          :key="index + '_' + i"
-        >{{i}}</b-list-group-item>
-      </b-list-group>
-    </div>               
+      <div class="photo">
+        <h5>Add a photo:<br><small>Insert a hyperlink</small></h5>        
+        <input v-model="created_recipe.recepiePreview.imageUri" placeholder="https://img.etimg.com/thumb/msid-76085858,width-1200,height-900,imgsize-91873,overlay-etpanache/photo.jpg">
+      </div>      
+
+      <div class = "ingredients">
+        <h5>Added ingredients:</h5>
+        <ul v-if="created_recipe.ingredients!=''">  
+          <li class="list-group-item borderless" button variant="secondary" v-for="(i, index) in created_recipe.ingredients.split('&')"
+            :key="index + '_' + i"
+          ><div v-if="index!=(created_recipe.ingredients.split('&').length-1)">
+            {{i}}
+          <b-button @click="removeIng(i)" size="sm" class="ml-2" variant="danger">x</b-button>
+          </div>            
+          </li>
+        </ul>
+        <small v-else>You haven't added ingredients yet</small>      
+      </div>      
+    </div>                   
 
 </div>
 </template>
@@ -165,7 +177,8 @@ export default {
         },
         changeView(){
             this.pressed = false;
-            this.viewing = !this.viewing;
+            this.onReset();
+            this.$parent.hideRecipeModal();
         },
 
         async onAdd(){     
@@ -180,16 +193,44 @@ export default {
             this.$root.store.server_domain + "/Users/MyRecipes",
             this.created_recipe
             );
+
             this.changeView();
         },
         onReset(){
-
+          this.created_recipe = {
+                ingredients: "",
+                numberOfDishes: "",
+                prepInstructions: "",
+                recepiePreview: {
+                    id: null,
+                    title: "",
+                    prepTime: "",
+                    popularity: null,
+                    glutenFree: false,
+                    vegan: false,
+                    alreadyWatched: null,
+                    inFavorites: null,
+                    imageUri: ""
+                }
+            };
+            this.ingredientName= "";
+            this.ingredientAmount= "";
+            this.pressed= false;
         },
         addIngredient(){
             if(this.ingredientName=="" || this.ingredientAmount=="") return;
             this.created_recipe.ingredients += " " + this.ingredientName + " | " + this.ingredientAmount + " & ";
             this.ingredientName = "";
             this.ingredientAmount = "";
+        },
+        removeIng(ing){
+          let temp = this.created_recipe.ingredients.split('&');
+          let index = temp.indexOf(ing);
+          if(index<=-1) return;
+          temp.splice(index,1);
+          this.created_recipe.ingredients = temp.join('&');
+          if(this.created_recipe.ingredients==' ') this.created_recipe.ingredients = ""
+          console.log(this.created_recipe.recepiePreview.imageUri);
         }
     }
 }
@@ -197,13 +238,19 @@ export default {
 
 <style>
 .container{
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
+  
 }
 .right{
-  margin-left: 4px;
+  
+  float: right;
 }
-.left{
-  margin-right: 4px;
+.left{  
+  float: left;
+}
+.photo{
+  padding-bottom: 30%;
+}
+.ingredients{
+
 }
 </style>
